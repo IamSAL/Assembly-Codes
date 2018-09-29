@@ -1,0 +1,32 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+.CODE
+
+MAIN PROC
+
+    /CODE 
+    GOES 
+    HERE/
+
+
+
+    MOV AH,4CH ---------IN WHICH MODE?
+    INT 21H-------------EXECUTE THE PREVIOUS TASK
+    MAIN ENDP----------END OF THIS FUNCTION
+END MAIN 
+
+
+
+SOME MODES:
+
+MOV AH,1------------------GET AN INPUT FROM USER
+MOV AH,2------------------SHOW OUTPUT FROM DATA REGISTER
+MOV AH,9-----------------LOAD DATA/OUT FROM A SOURCE
+
+
+
+IMPORTANT:
+
+>emulator gets the inout as the ASCII code of the pressed key
+>it has no base for inserted numbers
