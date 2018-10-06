@@ -1,10 +1,29 @@
 .MODEL SMALL
 .STACK 100H
 .DATA
+
+var_name [size-db/dw/dd] [data if now] ? if later. ---------/Storing something in data segment/
+
+
+
 .CODE
+
+
+
+
+
 
 MAIN PROC
 
+MOV AX,@DATA  -----/linkup of code and data segment/
+MOV DS,AX
+
+
+  LEA DX,MSG1  -----/for printing string/
+   MOV AH,9
+   INT 21H
+    
+    
     /CODE 
     GOES 
     HERE/
@@ -22,7 +41,7 @@ SOME MODES:
 
 MOV AH,1------------------GET AN INPUT FROM USER
 MOV AH,2------------------SHOW OUTPUT FROM DATA REGISTER
-MOV AH,9-----------------LOAD DATA/OUT FROM A SOURCE
+MOV AH,9-----------------LOAD DATA/OUT FROM A SOURCE/print string
 
 
 
