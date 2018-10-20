@@ -1,0 +1,84 @@
+ .model small
+ .stack 100h  
+ 
+ .data 
+ 
+ 
+ numb dw ? 
+ 
+; entr db "Enter a number : $"
+ 
+ 
+ p db "PRIME. $"
+ 
+ np db " NOT PRIME. $"
+
+ .code
+ main proc
+   
+       mov ax, @data
+       mov ds,ax  
+       
+       mov ax,7
+       cmp ax,1
+       je nprime
+       cmp ax,2
+       je prime
+       cmp ax,3
+       je prime 
+       cmp ax,5
+       je prime
+       
+    
+   
+       mov numb,ax
+       
+        
+       mov ax,numb
+       mov bl,2 
+       
+       div bl
+       
+       
+       cmp ah,0
+       
+       JE nprime
+       
+       
+       mov ax,numb
+       mov bl,3
+       div bl
+       cmp ah,0
+       JE nprime
+        
+                 
+       
+       mov ax,numb
+       mov bl,5
+       div bl
+       cmp ah,0
+      
+       JE nprime 
+       
+
+       
+       prime:
+       
+       mov ah,9
+       lea dx,p
+       int 21h       
+       JMP exit  
+       
+       nprime: 
+       mov ah,9
+       lea dx,np
+       int 21h       
+       JMP exit
+       
+    
+   
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+ end main
