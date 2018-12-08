@@ -1,0 +1,106 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+BLANK db ?
+STAR db ? 
+.CODE
+ 
+ 
+CONTROL proc
+    MOV CH,0
+    MOV CL,AL
+    
+    
+    
+    outer:    
+        PUSH CX
+        CALL WORKER
+    
+        POP CX
+        CALL NEWLINE            
+    LOOP outer
+    
+    
+    ret
+    CONTROL endp
+
+
+WORKER proc
+    MOV CH,0
+    MOV DH,BLANK    
+    MOV CL,DH
+    
+    
+    CMP DH,0
+    JE STAR_PRINT
+    
+    blankLoop:
+        MOV AH,2
+        MOV DL,' '
+        INT 21h
+                    
+    LOOP blankLoop
+    
+    
+    STAR_PRINT:
+    
+    MOV CH,0
+    MOV DH,STAR    
+    MOV CL,DH
+    
+    STARS:
+    
+        MOV BL,0
+        MOV DH,1
+        
+        ADD DH,BL
+        
+        MOV DL,DH
+    
+    
+        MOV AH,2
+
+        INT 21h
+                    
+    LOOP STARS
+    
+    DEC blank
+    ;INC star
+    ADD STAR,2
+    
+    ret
+    
+    WORKER endp
+
+
+NEWLINE proc
+    MOV AH,2
+    MOV DL,0Dh
+    INT 21H
+    MOV DL,0Ah
+    INT 21H
+    ret
+    
+    newLine endp
+    
+    
+MAIN PROC
+         
+    MOV AX,@DATA
+    MOV DS, AX
+    
+    
+    MOV AL,4
+    DEC AL
+    MOV BLANK, AL
+    INC AL
+    
+    
+    MOV DH, AL
+    SUB DH,BLANK
+    MOV STAR,DH
+    
+    CALL CONTROL
+    
+    MAIN ENDP
+END MAIN
